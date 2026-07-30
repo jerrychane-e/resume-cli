@@ -6,40 +6,40 @@
 
 ### 后端（CLI + API 服务）
 
-| 依赖 | 用途 |
-|------|------|
-| Node.js ≥ 18 (ES Module) | 运行时环境 |
-| `commander` ^12 | CLI 框架，声明式子命令与自动 help |
-| `pdf-parse` ^1 | 解析 PDF 文本层，提取纯文本 |
-| `openai` ^4 | 调用 LLM API（兼容 OpenAI / Azure / Ollama 等） |
-| `express` ^4 | Web API 服务 |
-| `multer` ^2 | 处理文件上传（multipart/form-data） |
-| `zod` ^3 | JSON Schema 校验与字段补缺 |
-| `dotenv` ^16 | 加载 .env 环境变量 |
-| `https-proxy-agent` ^7 | HTTP/HTTPS 代理支持 |
-| `cors` ^2 | 跨域请求处理 |
-| `vitest` ^1 | 测试框架 |
+| 依赖                     | 用途                                            |
+| ------------------------ | ----------------------------------------------- |
+| Node.js ≥ 18 (ES Module) | 运行时环境                                      |
+| `commander` ^12          | CLI 框架，声明式子命令与自动 help               |
+| `pdf-parse` ^1           | 解析 PDF 文本层，提取纯文本                     |
+| `openai` ^4              | 调用 LLM API（兼容 OpenAI / Azure / Ollama 等） |
+| `express` ^4             | Web API 服务                                    |
+| `multer` ^2              | 处理文件上传（multipart/form-data）             |
+| `zod` ^3                 | JSON Schema 校验与字段补缺                      |
+| `dotenv` ^16             | 加载 .env 环境变量                              |
+| `https-proxy-agent` ^7   | HTTP/HTTPS 代理支持                             |
+| `cors` ^2                | 跨域请求处理                                    |
+| `vitest` ^1              | 测试框架                                        |
 
 ### 前端（Web 展示层）
 
-| 依赖 | 用途 |
-|------|------|
-| React ^18 + TypeScript ^5 | UI 框架 |
-| Vite ^5 | 构建工具，开发热更新 |
-| `react-router-dom` ^6 | 前端路由 |
-| `recharts` ^2 | 雷达图可视化评分维度 |
-| `react-dropzone` ^14 | 文件拖拽上传 |
-| `axios` ^1 | HTTP 请求 |
+| 依赖                      | 用途                 |
+| ------------------------- | -------------------- |
+| React ^18 + TypeScript ^5 | UI 框架              |
+| Vite ^5                   | 构建工具，开发热更新 |
+| `react-router-dom` ^6     | 前端路由             |
+| `recharts` ^2             | 雷达图可视化评分维度 |
+| `react-dropzone` ^14      | 文件拖拽上传         |
+| `axios` ^1                | HTTP 请求            |
 
 ## 环境变量配置
 
-| 变量名 | 说明 | 是否必填 | 默认值 |
-|--------|------|----------|--------|
-| `OPENAI_API_KEY` | LLM API 密钥 | **必填**（mock 模式除外） | 无 |
-| `OPENAI_BASE_URL` | API 服务地址 | 可选 | `https://api.openai.com/v1` |
-| `LLM_MODEL` | 模型名称 | 可选 | `gpt-4o-mini` |
-| `HTTP_PROXY` | HTTP 代理地址 | 可选 | 无 |
-| `HTTPS_PROXY` | HTTPS 代理地址 | 可选 | 无 |
+| 变量名            | 说明           | 是否必填                  | 默认值                      |
+| ----------------- | -------------- | ------------------------- | --------------------------- |
+| `OPENAI_API_KEY`  | LLM API 密钥   | **必填**（mock 模式除外） | 无                          |
+| `OPENAI_BASE_URL` | API 服务地址   | 可选                      | `https://api.openai.com/v1` |
+| `LLM_MODEL`       | 模型名称       | 可选                      | `gpt-4o-mini`               |
+| `HTTP_PROXY`      | HTTP 代理地址  | 可选                      | 无                          |
+| `HTTPS_PROXY`     | HTTPS 代理地址 | 可选                      | 无                          |
 
 > 复制 `.env.example` 为 `.env` 并填入真实值即可使用。
 
@@ -81,6 +81,7 @@ resume-cli parse /path/to/简历.pdf
 ```
 
 **错误处理：**
+
 - 文件不存在 → `错误：文件不存在 <路径>`
 - 非 PDF 文件 → `错误：不支持的文件类型，仅接受 .pdf 文件`
 - 损坏/加密 → `错误：无法读取 PDF 文件，文件可能已损坏或为加密文件`
@@ -99,6 +100,7 @@ resume-cli extract ./resume.pdf --output ./out/data.json # 自动创建目录
 ```
 
 **输出 JSON 结构：**
+
 ```json
 {
   "name": "张三",
@@ -129,6 +131,7 @@ resume-cli score ./resume.pdf --jd ./jd.txt --output score.json  # 保存结果
 ```
 
 **输出 JSON 结构：**
+
 ```json
 {
   "overall_score": 82,
@@ -152,6 +155,7 @@ resume-cli serve --port 3000 --open         # 自动打开浏览器
 ```
 
 打开浏览器访问 `http://localhost:3000`，即可：
+
 - 📋 **简历解析模式**：拖拽上传 PDF → 结构化卡片展示（姓名、联系方式、教育时间线、技能标签云）
 - 🎯 **JD 匹配模式**：上传 PDF + 输入 JD → 雷达图 + 综合得分仪表盘 + 面试问题列表
 
@@ -186,12 +190,14 @@ $ resume-cli score ./resume.pdf --jd ./jd.txt --mock
 ## 已实现功能清单
 
 ### 核心功能
+
 - [x] `parse` — PDF 纯文本提取，含 4 种错误分类
 - [x] `extract` — LLM 结构化简历解析（姓名/电话/邮箱/城市/教育/技能）
 - [x] `score` — LLM 多维匹配评分（技能 50% + 经验 30% + 学历 20%）
 - [x] `serve` — Web 可视化服务（React + Express）
 
 ### 加分项
+
 - [x] `--output` 保存结果（extract + score 均支持）
 - [x] `--mock` 演示模式
 - [x] JSON 自动修复（5 级策略：去空白 → 去 markdown → 截取 JSON → 修复尾部逗号 → 修正键名）
@@ -202,6 +208,7 @@ $ resume-cli score ./resume.pdf --jd ./jd.txt --mock
 - [x] 前端可视化：简历卡片 + 教育时间线 + 技能标签云 + 雷达图 + 仪表盘 + 面试问题
 
 ### 工程化
+
 - [x] 中文错误提示 + stderr 输出 + 非零退出码
 - [x] 每个命令独立 `--help`
 - [x] `HTTP_PROXY` / `HTTPS_PROXY` 代理支持
@@ -220,7 +227,7 @@ $ resume-cli score ./resume.pdf --jd ./jd.txt --mock
 
 本项目开发过程中使用了以下 AI 编码助手：
 
-- **Claude Code**（Anthropic）：用于需求分析、架构设计、代码生成、测试编写、文档生成等全流程。AI 辅助完成了：
+- **Claude Code**：用于需求分析、架构设计、代码生成、测试编写、文档生成等全流程。AI 辅助完成了：
   - 项目结构与模块划分设计
   - 所有后端代码（utils/services/commands/server/Prompts/validators）
   - 所有前端代码（React 组件/页面/样式/类型定义）
