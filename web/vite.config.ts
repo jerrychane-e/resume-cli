@@ -15,5 +15,15 @@ export default defineConfig({
   build: {
     outDir: 'dist',
     emptyOutDir: true,
+    rollupOptions: {
+      output: {
+        manualChunks: {
+          // React 核心单独分片，保持长期缓存友好
+          'vendor-react': ['react', 'react-dom', 'react-router-dom'],
+          // recharts 体量大且仅评分页使用，独立分片按需加载
+          'vendor-recharts': ['recharts'],
+        },
+      },
+    },
   },
 });
