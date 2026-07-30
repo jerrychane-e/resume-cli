@@ -1,0 +1,36 @@
+{
+  "resume": {
+    "name": "张三",
+    "phone": "13800138000",
+    "email": "zhangsan@example.com",
+    "city": "深圳",
+    "education": [
+      {
+        "school": "清华大学",
+        "major": "计算机科学与技术",
+        "degree": "硕士",
+        "graduation_time": "2023-06"
+      },
+      {
+        "school": "华中科技大学",
+        "major": "软件工程",
+        "degree": "本科",
+        "graduation_time": "2020-06"
+      }
+    ],
+    "skills": ["JavaScript", "TypeScript", "React", "Vue", "Node.js", "Python", "Docker", "Git"]
+  },
+  "score": {
+    "overall_score": 82,
+    "skill_score": 88,
+    "experience_score": 80,
+    "education_score": 75,
+    "comment": "该候选人与岗位要求匹配度较高。技能栈契合主技术方向，React 和 Node.js 经验与 JD 需求高度一致，教育背景扎实。不足之处在于缺少 Go 语言经验，且后端高并发场景经验较浅。",
+    "interview_questions": [
+      "请举例说明你在 React 项目中是如何进行状态管理的？为什么选择这个方案？",
+      "你在 Node.js 项目中如何进行性能优化？请结合具体案例说明。",
+      "请描述一次你解决复杂技术问题的经历，你的排查思路是怎样的？",
+      "根据 JD 要求，我们需要处理高并发场景，你有什么相关经验或学习计划吗？"
+    ]
+  }
+}
