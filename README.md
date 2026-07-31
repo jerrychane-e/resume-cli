@@ -62,11 +62,39 @@ npx resume-cli extract ./resume.pdf --mock
 
 ### 方式三：Docker 运行
 
+#### 构建镜像
+
 ```bash
 docker build -t resume-cli .
-docker run --rm resume-cli --help
-docker run --rm -p 3000:3000 -e OPENAI_API_KEY=$OPENAI_API_KEY resume-cli serve
 ```
+
+#### 查看帮助
+
+```bash
+docker run --rm resume-cli --help
+```
+
+#### 启动 Web 服务
+
+**推荐方式：使用 `--env-file` 自动加载 `.env` 文件**
+
+```bash
+docker run --rm -p 3000:3000 --env-file .env resume-cli serve
+```
+
+**备选方式：手动传入环境变量**
+
+```bash
+docker run --rm -p 3000:3000 \
+  -e OPENAI_API_KEY=你的密钥 \
+  -e OPENAI_BASE_URL=https://api.deepseek.com/v1 \
+  -e LLM_MODEL=deepseek-v4-flash \
+  resume-cli serve
+```
+
+> 注意：使用 `--env-file` 时，如果 `.env` 中有不需要的变量（如代理设置），可以手动注释掉（行首加 `#`）再使用。
+>
+> 如果不指定 `OPENAI_BASE_URL`，默认会请求 OpenAI 官方地址。使用 DeepSeek 等其他兼容服务时，务必同时设置 `OPENAI_BASE_URL` 和 `LLM_MODEL`，否则会报 401 认证错误。
 
 ## CLI 命令说明
 
